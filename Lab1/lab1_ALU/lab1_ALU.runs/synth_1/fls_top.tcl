@@ -17,24 +17,24 @@ proc create_report { reportName command } {
     send_msg_id runtcl-5 warning "$msg"
   }
 }
-set_param synth.incrementalSynthesisCache ./.Xil/Vivado-29725-VM4389-xkz/incrSyn
-set_msg_config -id {Synth 8-256} -limit 10000
-set_msg_config -id {Synth 8-638} -limit 10000
+set_param xicom.use_bs_reader 1
+set_param chipscope.maxJobs 4
 create_project -in_memory -part xc7a100tcsg324-1
 
 set_param project.singleFileAddWarning.threshold 0
 set_param project.compositeFile.enableAutoGeneration 0
 set_param synth.vivado.isSynthRun true
-set_property webtalk.parent_dir /home/ubuntu/Courses/COD_Lab/Lab1/lab1_ALU/lab1_ALU.cache/wt [current_project]
-set_property parent.project_path /home/ubuntu/Courses/COD_Lab/Lab1/lab1_ALU/lab1_ALU.xpr [current_project]
+set_property webtalk.parent_dir /home/xkz/Courses/COD_Lab/Lab1/lab1_ALU/lab1_ALU.cache/wt [current_project]
+set_property parent.project_path /home/xkz/Courses/COD_Lab/Lab1/lab1_ALU/lab1_ALU.xpr [current_project]
 set_property default_lib xil_defaultlib [current_project]
 set_property target_language Verilog [current_project]
-set_property ip_output_repo /home/ubuntu/Courses/COD_Lab/Lab1/lab1_ALU/lab1_ALU.cache/ip [current_project]
+set_property ip_output_repo /home/xkz/Courses/COD_Lab/Lab1/lab1_ALU/lab1_ALU.cache/ip [current_project]
 set_property ip_cache_permissions {read write} [current_project]
 read_verilog -library xil_defaultlib {
-  /home/ubuntu/Courses/COD_Lab/Lab1/lab1_ALU/lab1_ALU.srcs/sources_1/new/alu.v
-  /home/ubuntu/Courses/COD_Lab/Lab1/lab1_ALU/lab1_ALU.srcs/sources_1/new/register.v
-  /home/ubuntu/Courses/COD_Lab/Lab1/lab1_ALU/lab1_ALU.srcs/sources_1/new/alu_download.v
+  /home/xkz/Courses/COD_Lab/Lab1/lab1_ALU/lab1_ALU.srcs/sources_1/new/alu.v
+  /home/xkz/Courses/COD_Lab/Lab1/lab1_ALU/lab1_ALU.srcs/sources_1/new/en_edge.v
+  /home/xkz/Courses/COD_Lab/Lab1/lab1_ALU/lab1_ALU.srcs/sources_1/new/fls.v
+  /home/xkz/Courses/COD_Lab/Lab1/lab1_ALU/lab1_ALU.srcs/sources_1/new/fls_top.v
 }
 # Mark all dcp files as not used in implementation to prevent them from being
 # stitched into the results of this synthesis run. Any black boxes in the
@@ -44,18 +44,21 @@ read_verilog -library xil_defaultlib {
 foreach dcp [get_files -quiet -all -filter file_type=="Design\ Checkpoint"] {
   set_property used_in_implementation false $dcp
 }
-read_xdc /home/ubuntu/Courses/COD_Lab/Lab1/lab1_ALU/lab1_ALU.srcs/constrs_1/new/Nexys4.xdc
-set_property used_in_implementation false [get_files /home/ubuntu/Courses/COD_Lab/Lab1/lab1_ALU/lab1_ALU.srcs/constrs_1/new/Nexys4.xdc]
+read_xdc /home/xkz/Courses/COD_Lab/Lab1/lab1_ALU/lab1_ALU.srcs/constrs_1/new/alu.xdc
+set_property used_in_implementation false [get_files /home/xkz/Courses/COD_Lab/Lab1/lab1_ALU/lab1_ALU.srcs/constrs_1/new/alu.xdc]
+
+read_xdc /home/xkz/Courses/COD_Lab/Lab1/lab1_ALU/lab1_ALU.srcs/constrs_1/new/fls.xdc
+set_property used_in_implementation false [get_files /home/xkz/Courses/COD_Lab/Lab1/lab1_ALU/lab1_ALU.srcs/constrs_1/new/fls.xdc]
 
 set_param ips.enableIPCacheLiteLoad 1
 close [open __synthesis_is_running__ w]
 
-synth_design -top alu_download -part xc7a100tcsg324-1
+synth_design -top fls_top -part xc7a100tcsg324-1
 
 
 # disable binary constraint mode for synth run checkpoints
 set_param constraints.enableBinaryConstraints false
-write_checkpoint -force -noxdef alu_download.dcp
-create_report "synth_1_synth_report_utilization_0" "report_utilization -file alu_download_utilization_synth.rpt -pb alu_download_utilization_synth.pb"
+write_checkpoint -force -noxdef fls_top.dcp
+create_report "synth_1_synth_report_utilization_0" "report_utilization -file fls_top_utilization_synth.rpt -pb fls_top_utilization_synth.pb"
 file delete __synthesis_is_running__
 close [open __synthesis_is_complete__ w]

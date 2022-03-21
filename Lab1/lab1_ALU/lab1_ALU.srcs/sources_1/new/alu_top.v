@@ -21,13 +21,12 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module alu_download(
+module alu_top(
         input [15:0] sw,
         input en, rstn, clk,
         output [15:13] ledf,
         output [5:0] ledy
     );
-
 
     wire [5:0] a, b, y;
     wire [2:0] s, f;

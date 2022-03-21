@@ -1,0 +1,24 @@
+#-----------------------------------------------------------
+# Vivado v2019.1 (64-bit)
+# SW Build 2552052 on Fri May 24 14:47:09 MDT 2019
+# IP Build 2548770 on Fri May 24 18:01:18 MDT 2019
+# Start of session at: Mon Mar 21 15:08:38 2022
+# Process ID: 174156
+# Current directory: /home/xkz/Courses/COD_Lab/Lab1/lab1_ALU
+# Command line: vivado
+# Log file: /home/xkz/Courses/COD_Lab/Lab1/lab1_ALU/vivado.log
+# Journal file: /home/xkz/Courses/COD_Lab/Lab1/lab1_ALU/vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project /home/xkz/Courses/COD_Lab/Lab1/lab1_ALU/lab1_ALU.xpr
+update_compile_order -fileset sources_1
+open_hw
+connect_hw_server
+open_hw_target
+current_hw_device [get_hw_devices xc7a100t_0]
+refresh_hw_device -update_hw_probes false [lindex [get_hw_devices xc7a100t_0] 0]
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {/home/xkz/Courses/COD_Lab/Lab1/lab1_ALU/lab1_ALU.runs/impl_1/alu_download.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]

@@ -101,9 +101,89 @@ endmodule
 仿真时可以直接对 32 位的 ALU 仿真, 用系统的 `$random` 函数生成随机的 a 和 b, 编写 testbench 如下:
 
 ```verilog
+module alu_tb();
+    reg [31:0] a;
+    reg [31:0] b;
+    reg [2:0] s;
+    wire [31:0] y;
+    wire [2:0] f;
+    alu alu_inst(a, b, s, y, f);
+
+    initial begin
+        a = $random;
+        b = $random;
+        s = 0;
+        forever
+            #5 s = s + 1;
+    end
+
+    initial
+        #40 $finish;
+endmodule
 ```
 
+之后在 Vivado 中进行仿真, 波形如图:
 
+![image-20220321153521171](images/alu_wave.png)
+
+计算知波形正确.
+
+### 6 位 ALU 模块下载测试
+
+首先编写寄存器模块:
+
+```verilog
+module register #(parameter WIDTH = 6)
+    (
+        input [WIDTH-1:0] s,
+        input en, rstn, clk,
+        output reg [WIDTH-1:0] q);
+    always@(posedge clk) begin
+        if (~rstn)
+            q <= 0;
+        else
+            if (en)
+                q <= s;
+            else
+                q <= q;
+    end
+
+endmodule
+```
+
+之后在下载模块中引用:
+
+```verilog
+module alu_download(
+        input [15:0] sw,
+        input en, rstn, clk,
+        output [15:13] ledf,
+        output [5:0] ledy
+    );
+
+    wire [5:0] a, b, y;
+    wire [2:0] s, f;
+
+    register #(.WIDTH(3)) s1(sw[15:13], en, rstn, clk, s);
+    register #(.WIDTH(3)) s2(f, 1'b1, rstn, clk, ledf);
+    register s3(sw[11:6], en, rstn, clk, a);
+    register s4(sw[5:0], en, rstn, clk, b);
+    register s5(y, 1'b1, rstn, clk, ledy);
+
+    alu #(.WIDTH(6)) alu_inst(a, b, s, y, f);
+
+endmodule
+```
+
+之后按照实验讲义的要求编写 xdc 文件即可成功生成 .bit 文件并上板.
+
+下面放两张测试截图:
+
+|   减法 (6'b100111 - 6'b000011, 有符号小于)   |                算术右移 (6'b111111 >>> 1)                |
+| :------------------------------------------: | :------------------------------------------------------: |
+| ![alu_test_minus](images/alu_test_minus.jpg) | ![alu_test_shift_right](images/alu_test_shift_right.jpg) |
+
+### 查看 Vivado 生成电路
 
 ### 逻辑设计 (数据通路和状态图)
 

@@ -7,9 +7,9 @@
 # 
 
 if [ -z "$PATH" ]; then
-  PATH=/opt/vlab/vivado/Xilinx/Vivado/2019.1/ids_lite/ISE/bin/lin64:/opt/vlab/vivado/Xilinx/Vivado/2019.1/bin
+  PATH=/mnt/SDK/2019.1/bin:/mnt/Vivado/2019.1/ids_lite/ISE/bin/lin64:/mnt/Vivado/2019.1/bin
 else
-  PATH=/opt/vlab/vivado/Xilinx/Vivado/2019.1/ids_lite/ISE/bin/lin64:/opt/vlab/vivado/Xilinx/Vivado/2019.1/bin:$PATH
+  PATH=/mnt/SDK/2019.1/bin:/mnt/Vivado/2019.1/ids_lite/ISE/bin/lin64:/mnt/Vivado/2019.1/bin:$PATH
 fi
 export PATH
 
@@ -20,7 +20,7 @@ else
 fi
 export LD_LIBRARY_PATH
 
-HD_PWD='/home/ubuntu/Courses/COD_Lab/Lab1/lab1_ALU/lab1_ALU.runs/synth_1'
+HD_PWD='/home/xkz/Courses/COD_Lab/Lab1/lab1_ALU/lab1_ALU.runs/synth_1'
 cd "$HD_PWD"
 
 HD_LOG=runme.log
@@ -36,4 +36,4 @@ EAStep()
      fi
 }
 
-EAStep vivado -log alu_download.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source alu_download.tcl
+EAStep vivado -log fls_top.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source fls_top.tcl
