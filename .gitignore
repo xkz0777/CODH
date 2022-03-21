@@ -1,2 +1,5 @@
 /**/.*
 !.gitignore
+/**/impl_1/*
+!/**/impl_1/*.bit
+
