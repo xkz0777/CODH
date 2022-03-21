@@ -1,6 +1,0 @@
-INFO: [VRFC 10-2263] Analyzing Verilog file "/home/xkz/Courses/COD_Lab/Lab1/lab1_ALU/lab1_ALU.srcs/sources_1/new/alu.v" into library xil_defaultlib
-INFO: [VRFC 10-311] analyzing module alu
-INFO: [VRFC 10-2263] Analyzing Verilog file "/home/xkz/Courses/COD_Lab/Lab1/lab1_ALU/lab1_ALU.srcs/sources_1/new/fls.v" into library xil_defaultlib
-INFO: [VRFC 10-311] analyzing module fls
-INFO: [VRFC 10-2263] Analyzing Verilog file "/home/xkz/Courses/COD_Lab/Lab1/lab1_ALU/lab1_ALU.srcs/sim_1/new/fls_tb.v" into library xil_defaultlib
-INFO: [VRFC 10-311] analyzing module fls_tb

@@ -28,14 +28,13 @@ module fls (
         output reg [15:0] f
     );
 
-    reg [2:0] cur_state, next_state;
+    reg [1:0] cur_state, next_state;
 
     reg [15:0] a, b;
     parameter S0 = 3'b000;
     parameter S1 = 3'b001;
     parameter S2 = 3'b010;
     parameter S3 = 3'b011;
-    parameter S4 = 3'b100;
 
     wire [15:0] sum;
     alu #(.WIDTH(16)) alu_inst(a, b, 3'b001, sum);
@@ -47,11 +46,9 @@ module fls (
             S1:
                 next_state = en ? S2 : S1;
             S2:
-                next_state = S3;
-            S3:
-                next_state = en ? S4 : S3;
+                next_state = en ? S3 : S2;
             default:
-                next_state = en ? S4 : S3;
+                next_state = en ? S3 : S2;
         endcase
     end
 
@@ -61,24 +58,23 @@ module fls (
     always@(posedge clk) begin
         case(cur_state)
             S0: begin
-                f <= 0;
                 a <= 0;
                 b <= 0;
             end
             S1: begin
                 a <= (a) ? a : d;
-                f <= (a) ? f : d;
             end
             S2: begin
-                b <= (b) ? b : d;
-                f <= (b) ? f : d;
+                b <= (b) ? b : a;
+                a <= (b) ? a : d;
             end
-            S4: begin
-                a <= b;
-                b <= sum;
-                f <= sum;
+            default: begin
+                a <= sum;
+                b <= a;
             end
         endcase
     end
 
+    always@(*)
+        f = a;
 endmodule

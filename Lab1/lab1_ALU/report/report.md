@@ -1,6 +1,6 @@
-<div style="text-align:center;font-size:2em;font-weight:bold">中国科学技术大学计算机学院</div>
+<div style="text-align:center;font-size:2em;font-weight:bold;margin-top:20%">中国科学技术大学计算机学院</div>
 
-<div style="text-align:center;font-size:2em;font-weight:bold">《数字电路实验报告》</div>
+<div style="text-align:center;font-size:2em;font-weight:bold;">《数字电路实验报告》</div>
 
 
 
@@ -124,7 +124,7 @@ endmodule
 
 之后在 Vivado 中进行仿真, 波形如图:
 
-![image-20220321153521171](images/alu_wave.png)
+![image-20220321153521171](images/alu-sim.png)
 
 计算知波形正确.
 
@@ -151,10 +151,10 @@ module register #(parameter WIDTH = 6)
 endmodule
 ```
 
-之后在下载模块中引用:
+之后在下载的 top 模块中引用:
 
 ```verilog
-module alu_download(
+module alu_top(
         input [15:0] sw,
         input en, rstn, clk,
         output [15:13] ledf,
@@ -181,14 +181,219 @@ endmodule
 
 |   减法 (6'b100111 - 6'b000011, 有符号小于)   |                算术右移 (6'b111111 >>> 1)                |
 | :------------------------------------------: | :------------------------------------------------------: |
-| ![alu_test_minus](images/alu_test_minus.jpg) | ![alu_test_shift_right](images/alu_test_shift_right.jpg) |
+| ![alu_test_minus](images/alu-test-minus.jpg) | ![alu-test-shift-right](images/alu-test-shift-right.jpg) |
 
-### 查看 Vivado 生成电路
+#### RTL 电路
 
-### 逻辑设计 (数据通路和状态图)
+![image-20220321155457291](images/alu-rtl-circuit.png)
 
-### 核心代码
+#### 电路资源使用情况
 
-### 仿真, 下载结果及其分析
+![image-20220321155904106](images/alu-utilization.png)
+
+#### 时间性能报告
+
+![image-20220321160528635](images/alu-timing-report.png)
+
+### FLS 模块设计
+
+#### 状态机设计
+
+要计算斐波那契数列, 需要两个寄存器 `a`, `b` 用于寄存 `f_n-2` 和 `f_n-1`, 为了设计二段式 Moore 型状态机, 思路是把要输出的数每次都放到 `a` 中输出, 最后只要让 `f = a` 即可.
+
+初始状态记作 `S0`, 此时初始化 `a`, `b`, `f` 为 0, 其他状态复位时回到 `S0`, 当 `S0` 遇到有效 `en` 信号进入到 `S1`.
+
+`S1` 在 `a` 未被初始化时读取 `d` 并寄存到 `a`, 遇到有效 `en` 信号进入状态 `S2`.
+
+`S2` 状态会在 `b` 未被初始化时将 `a` 存到 `b` 读取 `d` 并寄存到 `a`, 遇到有效 `en` 信号进入状态 `S3`.
+
+`S3` 状态执行加法, `a <= a + b`, `b <= a`, 遇到无效 `en` 信号回到 `S2`.
+
+状态图:
+
+<img src="images/state-diagram.png" alt="image-20220321212522869" style="zoom:50%;" />
+
+#### 核心代码
+
+首先实例化一个 ALU, 在迭代计算数列下一项时用:
+
+```verilog
+alu #(.WIDTH(16)) alu_inst(a, b, 3'b001, sum);
+```
+
+组合逻辑描述下一个状态:
+
+```verilog
+always@(*) begin
+    case(cur_state)
+        S0:
+            next_state = en ? S1 : S0;
+        S1:
+            next_state = en ? S2 : S1;
+        S2:
+            next_state = en ? S3 : S2;
+        default:
+            next_state = en ? S3 : S2;
+    endcase
+end
+```
+
+接下来用两个时序逻辑分别描述状态转移和每个状态的行为:
+
+```verilog
+always@(posedge clk)
+    cur_state = (rstn) ? next_state : S0;
+
+always@(posedge clk) begin
+    case(cur_state)
+        S0: begin
+            a <= 0;
+            b <= 0;
+        end
+        S1: begin
+            a <= (a) ? a : d;
+        end
+        S2: begin
+            b <= (b) ? b : a;
+            a <= (b) ? a : d;
+        end
+        default: begin
+            a <= sum;
+            b <= a;
+        end
+    endcase
+end
+```
+
+最后是简单的组合逻辑描述输出:
+
+```verilog
+always@(*)
+    f = a;
+```
+
+#### FLS 模块仿真
+
+编写 testbench 如下:
+
+```verilog
+module fls_tb();
+    reg clk, rstn, en;
+    reg [15:0] d;
+    wire [15:0] f;
+
+    initial begin
+        clk = 0;
+        forever
+            #5 clk = clk + 1;
+    end
+
+    initial begin
+        rstn = 0;
+        #8 rstn = 1;
+    end
+
+    initial begin
+        en = 0;
+        #12 en = 1;
+        #9 en = 0;
+        #21 en = 1;
+        #10 en = 0;
+        #10 en = 1;
+        #10 en = 0;
+        #10 en = 1;
+        #10 en = 0;
+        #5 $finish;
+    end
+
+    initial begin
+        d = 2;
+        #32 d = 3;
+        #20 d = 4;
+    end
+
+    fls fls_inst(clk, rstn, en, d, f);
+endmodule
+```
+
+在 Vivado 进行仿真, 波形图如下:
+
+![image-20220321190113291](images/fls-sim.png)
+
+可以发现与讲义相符.
+
+### FLS 模块下载测试
+
+首先需要编写一个取边沿的模块 `en_edge`:
+
+```verilog
+module en_edge(
+        input en, clk,
+        output out
+    );
+    reg [15:0] cnt;
+
+    always@(posedge clk) begin
+        if (en == 0)
+            cnt <= 0;
+        else if (cnt < 16'h8000)
+            cnt <= cnt + 1;
+        else
+            cnt <= cnt;
+    end
+
+    reg en1, en2;
+    always@(posedge clk) begin
+        en1 <= cnt[15];
+        en2 <= en1;
+    end
+
+    assign out = en1 & ~en2;
+
+endmodule
+```
+
+然后编写 xdc 和 top 模块:
+
+```verilog
+module fls_top (
+        input clk,
+        input rstn,
+        input en,
+        input [15:0] sw,
+        output [15:0] led
+    );
+
+    wire out;
+    en_edge inst(en, clk, out);
+    fls fls_inst(clk, rstn, out, sw, led);
+endmodule
+```
+
+烧写到开发板上进行测试, 与预期相符.
+
+#### RTL 电路
+
+![image-20220321220536136](images/fls-rtl.png)
+
+#### 电路资源使用情况
+
+![image-20220321220712144](images/fls-utilization.png)
+
+#### 时间性能报告
+
+![image-20220321220826382](images/fls-timing-report.png)
 
 ## 总结与建议
+
+本次实验我收获颇丰, 主要包括以下几个方面:
+
+1. 体验了将生成的 bit 文件到烧写到开发板上. 上学期的数电实验使用 FPGA 在线平台, 没能摸到板子, 这学期在真正的板子上进行烧写, 体验明显是更好的.
+2. 加强了仿真的练习. 之前数电实验里的实验大多比较简单, 不需要太多的 debug, 本实验难度则明显较大, 使用仿真进行 debug 显然比每次改完都尝试生成 bit 文件并烧写的效率来得高多了.
+3. 学会更好地设计状态机. 一开始我设计出的是三段式 Mealy 型状态机, 并且有五个状态 (如下图). 一开始设计状态机时的逻辑是比较混乱的, 并没有刻意追求输出是在组合逻辑还是时序逻辑, 最后经过思考才改成了四个状态的两段式 Moore 型状态机.
+
+<img src="images/state-diagram-v1.png" alt="image-20220321212830792" style="zoom:50%;" />
+
+4. 学会了查看 RTL 电路, 电路资源使用情况以及时间性能报告.
+
+对实验的建议是可以先进行预备实验, 教会同学们如何使用开发板, 我一开始使用 Vlab 来写 Verilog, 生成的 bit 文件不知道如何烧写到板子上, 花去了较多时间搜索开发板的使用.

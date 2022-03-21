@@ -2,8 +2,8 @@
 # Vivado v2019.1 (64-bit)
 # SW Build 2552052 on Fri May 24 14:47:09 MDT 2019
 # IP Build 2548770 on Fri May 24 18:01:18 MDT 2019
-# Start of session at: Mon Mar 21 20:17:11 2022
-# Process ID: 239034
+# Start of session at: Mon Mar 21 22:01:47 2022
+# Process ID: 328351
 # Current directory: /home/xkz/Courses/COD_Lab/Lab1/lab1_ALU/lab1_ALU.runs/synth_1
 # Command line: vivado -log fls_top.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source fls_top.tcl
 # Log file: /home/xkz/Courses/COD_Lab/Lab1/lab1_ALU/lab1_ALU.runs/synth_1/fls_top.vds
