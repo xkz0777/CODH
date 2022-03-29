@@ -1,4 +1,4 @@
-<div style="text-align:center;font-size:2em;font-weight:bold">中国科学技术大学计算机学院</div>
+<div style="text-align:center;font-size:2em;font-weight:bold;margin-top:20%">中国科学技术大学计算机学院</div>
 
 <div style="text-align:center;font-size:2em;font-weight:bold">《数字电路实验报告》</div>
 
