@@ -37,13 +37,13 @@ module top_module(
     output [7:0] out
 );
     always @(*) begin	
-		for (int i=0; i<8; i++)
+        for (int i = 0; i < 8; i++)
 			out[i] = in[8-i-1];
 	end
     /*
     generate
 		genvar i;
-		for (i=0; i<8; i = i+1) begin: my_block_name
+		for (i = 0; i < 8; i = i+1) begin: my_block_name
 			assign out[i] = in[8-i-1];
 		end
 	endgenerate
