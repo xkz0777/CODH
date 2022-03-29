@@ -3,9 +3,9 @@
 // Company:
 // Engineer:
 //
-// Create Date: 2022/03/29 19:22:21
+// Create Date: 2022/03/29 22:51:01
 // Design Name:
-// Module Name: dpe
+// Module Name: dpe_tb
 // Project Name:
 // Target Devices:
 // Tool Versions:
@@ -20,26 +20,33 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module dpe( // 去抖动、取双边沿、编码
-        input clk, rstn,
-        input [15:0] x,
-        output p,
-        output reg [3:0] h
-    );
+module dpe_tb();
+    reg [15:0] x;
+    reg clk;
+    reg [3:0] h;
+    reg rstn;
+    wire p;
 
-    wire [15:0] db_x, edge_x;
+    wire [15:0] edge_x;
     generate
         genvar i;
         for (i = 0; i < 16; i = i + 1) begin: DPE_BLOCK
-            db db_inst(clk, x[i], db_x[i]);
-            double_edge edge_inst(clk, db_x[i], edge_x[i]);
+            double_edge edge_inst(clk, x[i], edge_x[i]);
         end
     endgenerate
 
     assign p = |edge_x;
 
+    reg [15:0] tmp;
+    always@(posedge clk) begin
+        if (~rstn)
+            tmp <= 0;
+        if (p)
+            tmp <= edge_x; // 寄存 edge_x，使得产生的 h 信号能够持续
+    end
+
     always@(*) begin
-        case (edge_x)
+        case (tmp)
             16'h0001:
                 h = 0;
             16'h0002:
@@ -70,8 +77,27 @@ module dpe( // 去抖动、取双边沿、编码
                 h = 13;
             16'h4000:
                 h = 14;
-            default:
+            16'h8000:
                 h = 15;
+            default:
+                h = 0;
         endcase
+    end
+
+    initial begin
+        x = 0;
+        rstn = 0;
+        #9 rstn = 1;
+        #1 x = 16'h0008;
+        #10 x = 16'h0082;
+        #10 x = 16'h0080;
+        #10 x = 16'h0180;
+        #10 $finish;
+    end
+
+    initial begin
+        clk = 0;
+        forever
+            #1 clk = ~clk;
     end
 endmodule
