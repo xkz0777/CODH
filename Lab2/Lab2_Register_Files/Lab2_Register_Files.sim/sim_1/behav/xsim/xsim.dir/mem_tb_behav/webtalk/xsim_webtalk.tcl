@@ -1,6 +1,6 @@
 webtalk_init -webtalk_dir /home/xkz/Courses/COD_Lab/Lab2/Lab2_Register_Files/Lab2_Register_Files.sim/sim_1/behav/xsim/xsim.dir/mem_tb_behav/webtalk/
 webtalk_register_client -client project
-webtalk_add_data -client project -key date_generated -value "Tue Mar 29 18:57:31 2022" -context "software_version_and_target_device"
+webtalk_add_data -client project -key date_generated -value "Tue Mar 29 20:45:19 2022" -context "software_version_and_target_device"
 webtalk_add_data -client project -key product_version -value "XSIM v2019.1 (64-bit)" -context "software_version_and_target_device"
 webtalk_add_data -client project -key build_version -value "2552052" -context "software_version_and_target_device"
 webtalk_add_data -client project -key os_platform -value "LIN64" -context "software_version_and_target_device"
@@ -14,7 +14,7 @@ webtalk_add_data -client project -key target_package -value "not_applicable" -co
 webtalk_add_data -client project -key target_speed -value "not_applicable" -context "software_version_and_target_device"
 webtalk_add_data -client project -key random_id -value "360844a8-9653-4fbb-8fe3-3918036119af" -context "software_version_and_target_device"
 webtalk_add_data -client project -key project_id -value "4f73fcdb5ef348c197c70b08d4842307" -context "software_version_and_target_device"
-webtalk_add_data -client project -key project_iteration -value "9" -context "software_version_and_target_device"
+webtalk_add_data -client project -key project_iteration -value "11" -context "software_version_and_target_device"
 webtalk_add_data -client project -key os_name -value "Ubuntu" -context "user_environment"
 webtalk_add_data -client project -key os_release -value "Ubuntu 20.04.3 LTS" -context "user_environment"
 webtalk_add_data -client project -key cpu_name -value "AMD Ryzen 7 4800H with Radeon Graphics" -context "user_environment"
@@ -36,7 +36,7 @@ webtalk_add_data -client xsim -key Total_Nets -value "0" -context "xsim\\usage"
 webtalk_add_data -client xsim -key Total_Processes -value "435" -context "xsim\\usage"
 webtalk_add_data -client xsim -key Total_Instances -value "16" -context "xsim\\usage"
 webtalk_add_data -client xsim -key Xilinx_HDL_Libraries_Used -value "secureip unimacro_ver unisims_ver " -context "xsim\\usage"
-webtalk_add_data -client xsim -key Compiler_Time -value "1.42_sec" -context "xsim\\usage"
-webtalk_add_data -client xsim -key Compiler_Memory -value "225716_KB" -context "xsim\\usage"
-webtalk_transmit -clientid 2642642999 -regid "" -xml /home/xkz/Courses/COD_Lab/Lab2/Lab2_Register_Files/Lab2_Register_Files.sim/sim_1/behav/xsim/xsim.dir/mem_tb_behav/webtalk/usage_statistics_ext_xsim.xml -html /home/xkz/Courses/COD_Lab/Lab2/Lab2_Register_Files/Lab2_Register_Files.sim/sim_1/behav/xsim/xsim.dir/mem_tb_behav/webtalk/usage_statistics_ext_xsim.html -wdm /home/xkz/Courses/COD_Lab/Lab2/Lab2_Register_Files/Lab2_Register_Files.sim/sim_1/behav/xsim/xsim.dir/mem_tb_behav/webtalk/usage_statistics_ext_xsim.wdm -intro "<H3>XSIM Usage Report</H3><BR>"
+webtalk_add_data -client xsim -key Compiler_Time -value "2.05_sec" -context "xsim\\usage"
+webtalk_add_data -client xsim -key Compiler_Memory -value "225720_KB" -context "xsim\\usage"
+webtalk_transmit -clientid 985207335 -regid "" -xml /home/xkz/Courses/COD_Lab/Lab2/Lab2_Register_Files/Lab2_Register_Files.sim/sim_1/behav/xsim/xsim.dir/mem_tb_behav/webtalk/usage_statistics_ext_xsim.xml -html /home/xkz/Courses/COD_Lab/Lab2/Lab2_Register_Files/Lab2_Register_Files.sim/sim_1/behav/xsim/xsim.dir/mem_tb_behav/webtalk/usage_statistics_ext_xsim.html -wdm /home/xkz/Courses/COD_Lab/Lab2/Lab2_Register_Files/Lab2_Register_Files.sim/sim_1/behav/xsim/xsim.dir/mem_tb_behav/webtalk/usage_statistics_ext_xsim.wdm -intro "<H3>XSIM Usage Report</H3><BR>"
 webtalk_terminate

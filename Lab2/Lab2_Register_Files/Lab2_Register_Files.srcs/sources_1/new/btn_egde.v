@@ -3,9 +3,9 @@
 // Company:
 // Engineer:
 //
-// Create Date: 2022/03/29 19:22:21
+// Create Date: 2022/03/29 20:47:55
 // Design Name:
-// Module Name: dpe
+// Module Name: edge
 // Project Name:
 // Target Devices:
 // Tool Versions:
@@ -20,11 +20,16 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module dpe(
-        input [15:0] x,
-        output p,
-        output [3:0] h
+module btn_edge(
+        input clk, btn,
+        output single_edge
     );
+    reg btn1, btn2;
 
+    always@(posedge clk) begin
+        btn1 <= btn;
+        btn2 <= btn1;
+    end
 
+    assign single_edge = btn1 & ~btn2;
 endmodule
