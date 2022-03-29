@@ -1,0 +1,75 @@
+/*
+
+Xilinx Vivado v2019.1 (64-bit) [Major: 2019, Minor: 1]
+SW Build: 2552052 on Fri May 24 14:47:09 MDT 2019
+IP Build: 2548770 on Fri May 24 18:01:18 MDT 2019
+
+Process ID (PID): 33881
+License: Customer
+
+Current time: 	Sun Mar 27 17:02:00 CST 2022
+Time zone: 	China Standard Time (Asia/Shanghai)
+
+OS: Ubuntu
+OS Version: 5.11.0-27-generic
+OS Architecture: amd64
+Available processors (cores): 16
+
+Display: :0
+Screen size: 2880x1800
+Screen resolution (DPI): 200
+Available screens: 1
+Available disk space: 10 GB
+Default font: family=Dialog,name=Dialog,style=plain,size=30
+
+Java version: 	9.0.4 64-bit
+Java home: 	/mnt/Vivado/2019.1/tps/lnx64/jre9.0.4
+Java executable location: 	/mnt/Vivado/2019.1/tps/lnx64/jre9.0.4/bin/java
+Java initial memory (-Xms): 	128 MB
+Java maximum memory (-Xmx):	 3 GB
+
+
+User name: 	xkz
+User home directory: /home/xkz
+User working directory: /home/xkz/Courses/COD_Lab/Lab2/Lab2_Register_Files
+User country: 	CN
+User language: 	zh
+User locale: 	zh_CN
+
+RDI_BASEROOT: /mnt/Vivado
+HDI_APPROOT: /mnt/Vivado/2019.1
+RDI_DATADIR: /mnt/Vivado/2019.1/data
+RDI_BINDIR: /mnt/Vivado/2019.1/bin
+
+Vivado preferences file location: /home/xkz/.Xilinx/Vivado/2019.1/vivado.xml
+Vivado preferences directory: /home/xkz/.Xilinx/Vivado/2019.1/
+Vivado layouts directory: /home/xkz/.Xilinx/Vivado/2019.1/layouts
+PlanAhead jar file location: 	/mnt/Vivado/2019.1/lib/classes/planAhead.jar
+Vivado log file location: 	/home/xkz/Courses/COD_Lab/Lab2/Lab2_Register_Files/vivado.log
+Vivado journal file location: 	/home/xkz/Courses/COD_Lab/Lab2/Lab2_Register_Files/vivado.jou
+Engine tmp dir: 	./.Xil/Vivado-33881-yoga14s-ubuntu
+
+Xilinx Environment Variables
+----------------------------
+XILINX: /mnt/Vivado/2019.1/ids_lite/ISE
+XILINX_DSP: /mnt/Vivado/2019.1/ids_lite/ISE
+XILINX_PLANAHEAD: /mnt/Vivado/2019.1
+XILINX_SDK: /mnt/SDK/2019.1
+XILINX_VIVADO: /mnt/Vivado/2019.1
+XILINX_VIVADO_HLS: /mnt/Vivado/2019.1
+
+
+GUI allocated memory:	185 MB
+GUI max memory:		3,072 MB
+Engine allocated memory: 920 MB
+
+Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
+
+*/
+
+// TclEventType: START_GUI
+// Tcl Message: start_gui 
+// HMemoryUtils.trashcanNow. Engine heap size: 920 MB. GUI used memory: 71 MB. Current time: 3/27/22, 5:02:02 PM CST
+// WARNING: HEventQueue.dispatchEvent() is taking  1001 ms.
+// WARNING: HEventQueue.dispatchEvent() is taking  1001 ms.
+// WARNING: HEventQueue.dispatchEvent() is taking  1001 ms.

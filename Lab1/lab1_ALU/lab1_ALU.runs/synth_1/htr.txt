@@ -6,4 +6,4 @@
 # Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
 #
 
-vivado -log fls_top.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source fls_top.tcl
+vivado -log alu_top.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source alu_top.tcl

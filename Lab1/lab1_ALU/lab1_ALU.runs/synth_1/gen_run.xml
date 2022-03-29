@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GenRun Id="synth_1" LaunchPart="xc7a100tcsg324-1" LaunchTime="1647871305">
-  <File Type="VDS-TIMING-PB" Name="fls_top_timing_summary_synth.pb"/>
-  <File Type="VDS-TIMINGSUMMARY" Name="fls_top_timing_summary_synth.rpt"/>
-  <File Type="RDS-DCP" Name="fls_top.dcp"/>
-  <File Type="RDS-UTIL-PB" Name="fls_top_utilization_synth.pb"/>
-  <File Type="RDS-UTIL" Name="fls_top_utilization_synth.rpt"/>
-  <File Type="RDS-PROPCONSTRS" Name="fls_top_drc_synth.rpt"/>
-  <File Type="RDS-RDS" Name="fls_top.vds"/>
-  <File Type="REPORTS-TCL" Name="fls_top_reports.tcl"/>
-  <File Type="PA-TCL" Name="fls_top.tcl"/>
+<GenRun Id="synth_1" LaunchPart="xc7a100tcsg324-1" LaunchTime="1648037303">
+  <File Type="VDS-TIMING-PB" Name="alu_top_timing_summary_synth.pb"/>
+  <File Type="VDS-TIMINGSUMMARY" Name="alu_top_timing_summary_synth.rpt"/>
+  <File Type="RDS-DCP" Name="alu_top.dcp"/>
+  <File Type="RDS-UTIL-PB" Name="alu_top_utilization_synth.pb"/>
+  <File Type="RDS-UTIL" Name="alu_top_utilization_synth.rpt"/>
+  <File Type="RDS-PROPCONSTRS" Name="alu_top_drc_synth.rpt"/>
+  <File Type="RDS-RDS" Name="alu_top.vds"/>
+  <File Type="REPORTS-TCL" Name="alu_top_reports.tcl"/>
+  <File Type="PA-TCL" Name="alu_top.tcl"/>
   <FileSet Name="sources" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1">
     <Filter Type="Srcs"/>
     <File Path="$PSRCDIR/sources_1/new/alu.v">
@@ -18,28 +18,21 @@
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PSRCDIR/sources_1/new/en_edge.v">
-      <FileInfo>
-        <Attr Name="UsedIn" Val="synthesis"/>
-        <Attr Name="UsedIn" Val="implementation"/>
-        <Attr Name="UsedIn" Val="simulation"/>
-      </FileInfo>
-    </File>
-    <File Path="$PSRCDIR/sources_1/new/fls.v">
-      <FileInfo>
-        <Attr Name="UsedIn" Val="synthesis"/>
-        <Attr Name="UsedIn" Val="implementation"/>
-        <Attr Name="UsedIn" Val="simulation"/>
-      </FileInfo>
-    </File>
-    <File Path="$PSRCDIR/sources_1/new/fls_top.v">
-      <FileInfo>
-        <Attr Name="UsedIn" Val="synthesis"/>
-        <Attr Name="UsedIn" Val="implementation"/>
-        <Attr Name="UsedIn" Val="simulation"/>
-      </FileInfo>
-    </File>
     <File Path="$PSRCDIR/sources_1/new/register.v">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/alu_top.v">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/en_edge.v">
       <FileInfo>
         <Attr Name="AutoDisabled" Val="1"/>
         <Attr Name="UsedIn" Val="synthesis"/>
@@ -47,7 +40,15 @@
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PSRCDIR/sources_1/new/alu_top.v">
+    <File Path="$PSRCDIR/sources_1/new/fls.v">
+      <FileInfo>
+        <Attr Name="AutoDisabled" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/fls_top.v">
       <FileInfo>
         <Attr Name="AutoDisabled" Val="1"/>
         <Attr Name="UsedIn" Val="synthesis"/>
@@ -57,7 +58,7 @@
     </File>
     <Config>
       <Option Name="DesignMode" Val="RTL"/>
-      <Option Name="TopModule" Val="fls_top"/>
+      <Option Name="TopModule" Val="alu_top"/>
     </Config>
   </FileSet>
   <FileSet Name="constrs_in" Type="Constrs" RelSrcDir="$PSRCDIR/constrs_1">
@@ -75,7 +76,7 @@
       </FileInfo>
     </File>
     <Config>
-      <Option Name="TargetConstrsFile" Val="$PSRCDIR/constrs_1/new/fls.xdc"/>
+      <Option Name="TargetConstrsFile" Val="$PSRCDIR/constrs_1/new/alu.xdc"/>
       <Option Name="ConstrsType" Val="XDC"/>
     </Config>
   </FileSet>
