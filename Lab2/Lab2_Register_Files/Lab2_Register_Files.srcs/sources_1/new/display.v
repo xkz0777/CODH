@@ -37,7 +37,7 @@ module display(
 
     reg [18:0] cnt; // 分时复用计数器
     always@(posedge clk) begin
-        if (cnt >= 19'h6fff)
+        if (cnt >= 19'h6ffff)
             cnt <= 0;
         else
             cnt <= cnt + 1;

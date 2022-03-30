@@ -20,10 +20,10 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module dpe #(parameter CYCLE=16) ( // 去抖动、取双边沿、编码
+module dpe #(parameter CYCLE=25) ( // 去抖动、取双边沿、编码
         input clk, rstn,
         input [15:0] x,
-        output p,
+        output reg p,
         output reg [3:0] h
     );
 
@@ -36,16 +36,22 @@ module dpe #(parameter CYCLE=16) ( // 去抖动、取双边沿、编码
         end
     endgenerate
 
-    assign p = |edge_x;
-    reg [15:0] tmp; // 寄存，使得 h 脉冲能持续多周期
+    wire tmp_p;
+    reg [15:0] tmp_h; // 寄存，使得 h 脉冲能持续多周期
+
+    assign tmp_p = |edge_x;
+    always@(posedge clk) begin
+        p <= tmp_p;
+    end
+
     always@(posedge clk)
         if (~rstn)
-            tmp <= 0;
-        else if (p)
-            tmp <= edge_x;
+            tmp_h <= 0;
+        else if (tmp_p)
+            tmp_h <= edge_x;
 
     always@(*) begin
-        case (tmp)
+        case (tmp_h)
             16'h0001:
                 h = 0;
             16'h0002:

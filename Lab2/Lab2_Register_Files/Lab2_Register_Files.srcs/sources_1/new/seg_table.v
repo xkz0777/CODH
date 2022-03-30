@@ -27,37 +27,37 @@ module seg_table( // 数码管数据查找表
     always@(*) begin
         case (in)
             4'h0:
-                seg = 7'h3f;
+                seg = 7'h01;
             4'h1:
-                seg = 7'h06;
-            4'h2:
-                seg = 7'h5b;
-            4'h3:
                 seg = 7'h4f;
+            4'h2:
+                seg = 7'h12;
+            4'h3:
+                seg = 7'h06;
             4'h4:
-                seg = 7'h66;
+                seg = 7'h4c;
             4'h5:
-                seg = 7'h6d;
+                seg = 7'h24;
             4'h6:
-                seg = 7'h7d;
+                seg = 7'h20;
             4'h7:
-                seg = 7'h07;
+                seg = 7'h0f;
             4'h8:
-                seg = 7'h7f;
+                seg = 7'h00;
             4'h9:
-                seg = 7'h6f;
+                seg = 7'h04;
             4'ha:
-                seg = 7'h77;
+                seg = 7'h08;
             4'hb:
-                seg = 7'h7c;
+                seg = 7'h60;
             4'hc:
-                seg = 7'h39;
+                seg = 7'h31;
             4'hd:
-                seg = 7'h5e;
+                seg = 7'h42;
             4'he:
-                seg = 7'h79;
+                seg = 7'h30;
             4'hf:
-                seg = 7'h71;
+                seg = 7'h38;
         endcase
     end
 endmodule
