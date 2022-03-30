@@ -46,4 +46,8 @@ module sort_tb();
         #10 run = 1;
         #10 run = 0;
     end
+
+    initial begin
+        #10000 $finish;
+    end
 endmodule
