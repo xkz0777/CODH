@@ -80,7 +80,10 @@ module sort #(parameter CYCLE=25) (
         sorted = !i;
 
     wire larger;
-    assign larger = (spo > dpo) ? 1 : 0;
+    reg sel;
+    wire [15:0] true_spo;
+    assign true_spo = sel ? d : spo;
+    assign larger = (true_spo > dpo) ? 1 : 0;
 
     reg [15:0] tmp;
 
@@ -131,6 +134,7 @@ module sort #(parameter CYCLE=25) (
                     cnt <= 0;
                     i <= 254;
                     we_sort_en <= 0;
+                    sel = 0;
                 end
 
                 S2: begin // judge
@@ -147,11 +151,12 @@ module sort #(parameter CYCLE=25) (
 
                 S4: begin // cmp and swap1
                     we_sort_en <= 0;
+                    sel <= 0;
                     if (larger) begin
                         swaped <= 1;
                         we_sort_en <= 1;
                         d <= dpo;
-                        tmp <= spo;
+                        tmp <= true_spo;
                     end
                     else begin
                         a <= a + 1;
@@ -163,6 +168,7 @@ module sort #(parameter CYCLE=25) (
                     d <= tmp;
                     a <= a + 1;
                     cnt <= cnt + 1;
+                    sel <= 1;
                 end
             endcase
         end
