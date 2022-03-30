@@ -3,9 +3,9 @@
 // Company:
 // Engineer:
 //
-// Create Date: 2022/03/29 22:51:01
+// Create Date: 2022/03/30 10:46:06
 // Design Name:
-// Module Name: dpe_tb
+// Module Name: db_tb
 // Project Name:
 // Target Devices:
 // Tool Versions:
@@ -20,29 +20,25 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module dpe_tb();
-    reg [15:0] x;
-    reg clk, rstn;
-    wire [3:0] h;
-    wire p;
+module db_tb();
+    reg clk, btn;
+    wire out;
 
-    dpe #(.CYCLE(1)) dpe_inst(clk, rstn, x, p, h);
-
-    initial begin
-        x = 0;
-        rstn = 1;
-        #20 x = 16'h0008;
-        #20 x = 16'h0082;
-        #20 x = 16'h0080;
-        #20 x = 16'h0180;
-        #10 rstn = 0;
-        #10 x = 16'h0080;
-        #20 $finish;
-    end
+    db #(.CYCLE(1)) db_inst(clk, btn, 1, out);
 
     initial begin
         clk = 0;
         forever
-            #3 clk = ~clk;
+            #5 clk = ~clk;
+    end
+
+    initial begin
+        btn = 0;
+        forever
+            #20 btn = ~btn;
+    end
+
+    initial begin
+        #200 $finish;
     end
 endmodule

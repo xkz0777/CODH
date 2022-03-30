@@ -31,7 +31,7 @@ module dpe #(parameter CYCLE=16) ( // 去抖动、取双边沿、编码
     generate
         genvar i;
         for (i = 0; i < 16; i = i + 1) begin: DPE_BLOCK
-            db #(.CYCLE(CYCLE)) db_inst(clk, x[i], db_x[i]);
+            db #(.CYCLE(CYCLE)) db_inst(clk, x[i], rstn, db_x[i]);
             double_edge edge_inst(clk, db_x[i], edge_x[i]);
         end
     endgenerate
