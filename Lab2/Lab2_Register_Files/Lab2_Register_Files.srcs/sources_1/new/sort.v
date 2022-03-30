@@ -74,7 +74,7 @@ module sort #(parameter CYCLE=25) (
     reg sorted, swaped;
 
     initial
-        i = 254;
+        i = 255;
 
     always@(*)
         sorted = !i;
@@ -132,7 +132,7 @@ module sort #(parameter CYCLE=25) (
                 S1: begin // init
                     busy <= 1;
                     cnt <= 0;
-                    i <= 254;
+                    i <= 255;
                     we_sort_en <= 0;
                     sel = 0;
                 end
@@ -152,7 +152,7 @@ module sort #(parameter CYCLE=25) (
                 S4: begin // cmp and swap1
                     we_sort_en <= 0;
                     sel <= 0;
-                    if (larger) begin
+                    if (larger && a != (i + 1)) begin
                         swaped <= 1;
                         we_sort_en <= 1;
                         d <= dpo;
@@ -204,7 +204,7 @@ module sort #(parameter CYCLE=25) (
                 next_state = S0;
             end
             S4: begin
-                if (a == i)
+                if (a == i + 1)
                     next_state = S2;
                 else if (larger)
                     next_state = S5;

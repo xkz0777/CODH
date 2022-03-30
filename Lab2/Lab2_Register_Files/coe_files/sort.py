@@ -7,7 +7,7 @@ with open("./sort.coe", "r") as f:
     cnt = 0
     for i in range(1, 256):
         for j in range(0, 256 - i):
-            if arr[j] > arr[j + 1]:
+            if int(arr[j], 16) > int(arr[j + 1], 16):
                 cnt += 1
                 arr[j], arr[j + 1] = arr[j + 1], arr[j]
             cnt += 1

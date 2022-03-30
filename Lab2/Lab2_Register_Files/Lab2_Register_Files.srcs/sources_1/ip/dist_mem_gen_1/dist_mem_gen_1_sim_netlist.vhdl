@@ -3,8 +3,8 @@
 -- Tool Version: Vivado v.2019.1 (lin64) Build 2552052 Fri May 24 14:47:09 MDT 2019
 -- Date        : Wed Mar 30 19:05:20 2022
 -- Host        : yoga14s-ubuntu running 64-bit Ubuntu 20.04.3 LTS
--- Command     : write_vhdl -force -mode funcsim
---               /home/xkz/Courses/COD_Lab/Lab2/Lab2_Register_Files/Lab2_Register_Files.srcs/sources_1/ip/dist_mem_gen_1/dist_mem_gen_1_sim_netlist.vhdl
+-- Command     : write_vhdl -force -mode funcsim -rename_top dist_mem_gen_1 -prefix
+--               dist_mem_gen_1_ dist_mem_gen_1_sim_netlist.vhdl
 -- Design      : dist_mem_gen_1
 -- Purpose     : This VHDL netlist is a functional simulation representation of the design and should not be modified or
 --               synthesized. This netlist cannot be used for SDF annotated simulation.
@@ -24,8 +24,6 @@ entity dist_mem_gen_1_dpram is
     d : in STD_LOGIC_VECTOR ( 15 downto 0 );
     dpra : in STD_LOGIC_VECTOR ( 7 downto 0 )
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of dist_mem_gen_1_dpram : entity is "dpram";
 end dist_mem_gen_1_dpram;
 
 architecture STRUCTURE of dist_mem_gen_1_dpram is
@@ -1523,8 +1521,6 @@ entity dist_mem_gen_1_dist_mem_gen_v8_0_13_synth is
     d : in STD_LOGIC_VECTOR ( 15 downto 0 );
     dpra : in STD_LOGIC_VECTOR ( 7 downto 0 )
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of dist_mem_gen_1_dist_mem_gen_v8_0_13_synth : entity is "dist_mem_gen_v8_0_13_synth";
 end dist_mem_gen_1_dist_mem_gen_v8_0_13_synth;
 
 architecture STRUCTURE of dist_mem_gen_1_dist_mem_gen_v8_0_13_synth is
@@ -1628,8 +1624,6 @@ entity dist_mem_gen_1_dist_mem_gen_v8_0_13 is
   attribute C_SYNC_ENABLE of dist_mem_gen_1_dist_mem_gen_v8_0_13 : entity is 1;
   attribute C_WIDTH : integer;
   attribute C_WIDTH of dist_mem_gen_1_dist_mem_gen_v8_0_13 : entity is 16;
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of dist_mem_gen_1_dist_mem_gen_v8_0_13 : entity is "dist_mem_gen_v8_0_13";
 end dist_mem_gen_1_dist_mem_gen_v8_0_13;
 
 architecture STRUCTURE of dist_mem_gen_1_dist_mem_gen_v8_0_13 is

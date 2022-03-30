@@ -3,8 +3,8 @@
 // Tool Version: Vivado v.2019.1 (lin64) Build 2552052 Fri May 24 14:47:09 MDT 2019
 // Date        : Wed Mar 30 19:05:20 2022
 // Host        : yoga14s-ubuntu running 64-bit Ubuntu 20.04.3 LTS
-// Command     : write_verilog -force -mode funcsim
-//               /home/xkz/Courses/COD_Lab/Lab2/Lab2_Register_Files/Lab2_Register_Files.srcs/sources_1/ip/dist_mem_gen_1/dist_mem_gen_1_sim_netlist.v
+// Command     : write_verilog -force -mode funcsim -rename_top dist_mem_gen_1 -prefix
+//               dist_mem_gen_1_ dist_mem_gen_1_sim_netlist.v
 // Design      : dist_mem_gen_1
 // Purpose     : This verilog netlist is a functional simulation representation of the design and should not be modified
 //               or synthesized. This netlist cannot be used for SDF annotated simulation.
@@ -102,7 +102,7 @@ endmodule
 (* C_MEM_INIT_FILE = "dist_mem_gen_1.mif" *) (* C_MEM_TYPE = "2" *) (* C_PARSER_TYPE = "1" *) 
 (* C_PIPELINE_STAGES = "0" *) (* C_QCE_JOINED = "0" *) (* C_QUALIFY_WE = "0" *) 
 (* C_READ_MIF = "1" *) (* C_REG_A_D_INPUTS = "0" *) (* C_REG_DPRA_INPUT = "0" *) 
-(* C_SYNC_ENABLE = "1" *) (* C_WIDTH = "16" *) (* ORIG_REF_NAME = "dist_mem_gen_v8_0_13" *) 
+(* C_SYNC_ENABLE = "1" *) (* C_WIDTH = "16" *) 
 module dist_mem_gen_1_dist_mem_gen_v8_0_13
    (a,
     d,
@@ -192,7 +192,6 @@ module dist_mem_gen_1_dist_mem_gen_v8_0_13
         .we(we));
 endmodule
 
-(* ORIG_REF_NAME = "dist_mem_gen_v8_0_13_synth" *) 
 module dist_mem_gen_1_dist_mem_gen_v8_0_13_synth
    (spo,
     dpo,
@@ -227,7 +226,6 @@ module dist_mem_gen_1_dist_mem_gen_v8_0_13_synth
         .we(we));
 endmodule
 
-(* ORIG_REF_NAME = "dpram" *) 
 module dist_mem_gen_1_dpram
    (spo,
     dpo,
