@@ -3,9 +3,9 @@
 // Company:
 // Engineer:
 //
-// Create Date: 2022/03/29 20:55:26
+// Create Date: 2022/03/30 10:11:49
 // Design Name:
-// Module Name: db
+// Module Name: dp
 // Project Name:
 // Target Devices:
 // Tool Versions:
@@ -20,19 +20,9 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module db #(parameter CYCLE=16) (
-        input clk, btn, rstn,
-        output out
+module dp(
+        input clk, rstn, chk, del, data, addr,
+        output chk_p, del_p, data_p, addr_p
     );
 
-    reg [CYCLE-1:0] cnt;
-
-    always@(posedge clk) begin
-        if (~rstn | ~btn)
-            cnt <= 0;
-        else if (cnt < {1'b1, {(CYCLE-1){1'b0}}})
-            cnt <= cnt + 1;
-    end
-
-    assign out = cnt[CYCLE-1];
 endmodule
