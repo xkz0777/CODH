@@ -32,9 +32,9 @@ module dpe_tb();
         x = 0;
         rstn = 1;
         #20 x = 16'h0008;
-        #20 x = 16'h0082;
-        #20 x = 16'h0080;
-        #20 x = 16'h0180;
+        #20 x = 16'h000a;
+        #20 x = 16'h0008;
+        #20 x = 16'h0108;
         #10 rstn = 0;
         #10 x = 16'h0080;
         #20 $finish;
@@ -43,6 +43,6 @@ module dpe_tb();
     initial begin
         clk = 0;
         forever
-            #3 clk = ~clk;
+            #2 clk = ~clk;
     end
 endmodule

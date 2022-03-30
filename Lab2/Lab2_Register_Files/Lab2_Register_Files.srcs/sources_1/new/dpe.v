@@ -37,9 +37,15 @@ module dpe #(parameter CYCLE=16) ( // 去抖动、取双边沿、编码
     endgenerate
 
     assign p = |edge_x;
+    reg [15:0] tmp; // 寄存，使得 h 脉冲能持续多周期
+    always@(posedge clk)
+        if (~rstn)
+            tmp <= 0;
+        else if (p)
+            tmp <= edge_x;
 
     always@(*) begin
-        case (edge_x)
+        case (tmp)
             16'h0001:
                 h = 0;
             16'h0002:
@@ -70,8 +76,10 @@ module dpe #(parameter CYCLE=16) ( // 去抖动、取双边沿、编码
                 h = 13;
             16'h4000:
                 h = 14;
-            default:
+            16'h8000:
                 h = 15;
+            default:
+                h = 0;
         endcase
     end
 endmodule
