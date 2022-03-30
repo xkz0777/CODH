@@ -44,10 +44,6 @@ module sort_tb();
     initial begin
         run = 0;
         #10 run = 1;
-    end
-
-    initial begin
-        chk = 0;
-        #100000 chk = 1;
+        #10 run = 0;
     end
 endmodule

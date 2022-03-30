@@ -68,10 +68,18 @@ module sort #(parameter CYCLE=25) (
     dpe #(.CYCLE(CYCLE)) dpe_inst(clk, rstn, x, p, h);
     dp #(.CYCLE(CYCLE)) dp_inst(clk, rstn, chk, del, data, addr, chk_p, del_p, data_p, addr_p);
 
-    parameter S0 = 3'd0, S1 = 3'd1, S2 = 3'd2, S3 = 3'd3, S4 = 3'd4, S5 = 3'd5, S6 = 3'd6;
+    parameter S0 = 3'd0, S1 = 3'd1, S2 = 3'd2, S3 = 3'd3, S4 = 3'd4, S5 = 3'd5;
     reg [2:0] state, next_state;
     reg [7:0] i;
-    reg sorted, larger, swaped;
+    reg sorted, swaped;
+
+    reg pulse;
+    wire [15:0] left = pulse ? d : spo;
+    wire [15:0] right = dpo;
+
+    wire larger;
+    assign larger = left > right;
+
     reg [15:0] tmp;
 
     always@(posedge clk) begin
@@ -120,7 +128,6 @@ module sort #(parameter CYCLE=25) (
                     busy <= 1;
                     cnt <= 0;
                     sorted <= 0;
-                    larger <= 0;
                     i <= 254;
                     we_sort_en <= 0;
                 end
@@ -129,7 +136,7 @@ module sort #(parameter CYCLE=25) (
                     i <= i - 1;
                     if (i == 0)
                         sorted <= 1;
-                    a <= -1;
+                    a <= 0;
                     swaped <= 0;
                     cnt <= cnt + 1;
                 end
@@ -139,28 +146,26 @@ module sort #(parameter CYCLE=25) (
                     a <= 0;
                 end
 
-                S4: begin // cmp
-                    a <= a + 1;
+                S4: begin // cmp and swap1
                     we_sort_en <= 0;
-                    if (spo > dpo) begin
-                        larger <= 1;
+                    pulse <= 0;
+
+                    if (larger) begin
                         swaped <= 1;
+                        we_sort_en <= 1;
+                        d <= right;
+                        tmp <= left;
+                    end
+                    else begin
+                        a <= a + 1;
                     end
                     cnt <= cnt + 1;
                 end
 
-                S5: begin // swap1
-                    tmp <= dpo;
-                    d <= spo;
-                    a <= a + 1;
-                    we_sort_en <= 1;
-                    cnt <= cnt + 1;
-                end
-
-                S6: begin // swap2
+                S5: begin // swap2
+                    pulse <= 1;
                     d <= tmp;
-                    a <= a - 1;
-                    larger <= 0;
+                    a <= a + 1;
                     cnt <= cnt + 1;
                 end
             endcase
@@ -203,9 +208,6 @@ module sort #(parameter CYCLE=25) (
                     next_state = S4;
             end
             S5: begin
-                next_state = S6;
-            end
-            S6: begin
                 if (i == a)
                     next_state = S2;
                 else
