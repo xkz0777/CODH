@@ -39,6 +39,6 @@ module register_file#(
         if (we && wa)
             rf[wa] <= wd; // 写操作
 
-    assign rd0 = rf[ra0];
-    assign rd1 = rf[ra1];
+    assign rd0 = (ra0 == wa && we && wa != 0) ? wd : rf[ra0];
+    assign rd1 = (ra1 == wa && we && wa != 0) ? wd : rf[ra1];
 endmodule
