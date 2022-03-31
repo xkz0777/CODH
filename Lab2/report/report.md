@@ -2,17 +2,7 @@
 
 <div style="text-align:center;font-size:2em;font-weight:bold">《数字电路实验报告》</div>
 
-
-
-
-
-
-
 <img src="logo.png" style="zoom: 50%;" />
-
-
-
-
 
 <div style="display: flex;flex-direction: column;align-items: center;font-size:1.5em">
 <div>
@@ -23,8 +13,6 @@
 </div>
 </div>
 
-
-
 <div style="page-break-after:always"></div>
 
 ## 实验题目
@@ -34,7 +22,6 @@
 ## 实验目的
 
 + 掌握寄存器堆（Register File）和存储器的功能、时序及其应用
-
 + 熟练掌握数据通路和控制器的设计和描述方法
 
 ## 实验环境
@@ -51,7 +38,7 @@
 
 <img src="images/rf-ports.png" style="zoom:50%;" />
 
-讲义给出的寄存器堆模块已经大致可以满足要求，我们只要稍作修改，保证 0 号寄存器内容恒定为 0：
+讲义给出的寄存器堆模块已经大致可以满足要求，我们只要稍作修改，保证 0 号寄存器内容恒定为 0，同时，为了保证写优先，还需要修改一下读的组合逻辑：
 
 ```verilog
 module register_file#(
@@ -73,8 +60,8 @@ module register_file#(
         if (we && wa)
             rf[wa] <= wd; // 写操作
 
-    assign rd0 = rf[ra0];
-    assign rd1 = rf[ra1];
+    assign rd0 = (ra0 == wa && we && wa != 0) ? wd : rf[ra0];
+    assign rd1 = (ra1 == wa && we && wa != 0) ? wd : rf[ra1];
 endmodule
 ```
 
@@ -293,9 +280,7 @@ mp = {0xaa: "7ab1", 0xbb: "281b", 0xcc: "13c0", 0xdd: "427d"}
       end
   end
   ```
-
 + 输出：分时复用即可。
-
 + 排序：采取冒泡排序，可以实现原地的排序，其高级语言代码如下:
 
   ```python
@@ -450,7 +435,6 @@ mp = {0xaa: "7ab1", 0xbb: "281b", 0xcc: "13c0", 0xdd: "427d"}
   endcase
   ```
 
-
 #### 排序功能仿真
 
 仿真波形图如下（初始值为 256 个随机的整数，这里无法展示排序的过程，只截取存储器最大的 11 个值的初态和末态）：
@@ -479,10 +463,10 @@ mp = {0xaa: "7ab1", 0xbb: "281b", 0xcc: "13c0", 0xdd: "427d"}
 
 下载结果已经经过线下检查，下面放几张图片作为示意：
 
-|                  下载示意图                  |                  下载示意图                   |                    下载示意图                     |
-| :------------------------------------------: | :-------------------------------------------: | :-----------------------------------------------: |
-|     ![](images/1-init.jpg)烧写后初始状态     | ![](images/2-addr.jpg)按下 chk 查看下一处地址 | ![](images/3-chk0.jpg)查看一开始地址 0x00 处的值  |
-| ![](images/4-sort.jpg)按下排序后查看第一个值 |   ![](images/sort-1.jpg)排序后查看第二个值    | ![](images/sort-ff.jpg)排序后查看地址 0xff 处的值 |
+|                 下载示意图                 |                 下载示意图                 |                   下载示意图                   |
+| :----------------------------------------: | :-----------------------------------------: | :---------------------------------------------: |
+|     ![](images/1-init.jpg)烧写后初始状态     | ![](images/2-addr.jpg)按下 chk 查看下一处地址 | ![](images/3-chk0.jpg)查看一开始地址 0x00 处的值 |
+| ![](images/4-sort.jpg)按下排序后查看第一个值 |   ![](images/sort-1.jpg)排序后查看第二个值   | ![](images/sort-ff.jpg)排序后查看地址 0xff 处的值 |
 
 ## 总结与建议
 
