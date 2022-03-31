@@ -17,3 +17,9 @@ with open("./sort.coe", "w") as f:
         j = random.randrange(0, 0xffff)
         f.write(f"{hex(j)[2:]} ")
     f.write(";")
+
+with open("./init.coe", "w") as f:
+    f.write("memory_initialization_radix = 16;\nmemory_initialization_vector =\n")
+    for i in range(256):
+        f.write(f"{hex(i)[2:]} ")
+    f.write(";")
