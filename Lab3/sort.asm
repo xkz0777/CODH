@@ -40,7 +40,8 @@ add a3, t3, zero
 jal SWAP
 
 addi t1, t1, 1
-blt t1, t0, OUTER
+addi a6, t0, -1
+blt t1, a6, OUTER
 j PRINT
 
 SWAP: # swap a2 and a3
@@ -56,6 +57,7 @@ ret
 PRINT:
 add a2, zero, zero
 lw a3, SIZE
+slli a3, a3, 2
 lw a4, TDR
 addi a5, zero, 8 # every word output 9 times
 addi a6, a5, 20
@@ -70,6 +72,7 @@ beqz t1, WAIT
 
 lw t2, (a2) # Load a word
 srl t3, t2, a6 # shift right to display high-order bits first
+andi t3, t3, 0xf
 
 bge t3, a7, LETTER
 addi t3, t3, 0x30
@@ -86,12 +89,12 @@ sw t3, (a4)
 END_STORE:
 
 addi a5, a5, -1
-addi a6, a6, -8
+addi a6, a6, -4
 blt a5, zero, RESTORE
 j WAIT
 
 RESTORE:
 addi a5, zero, 8
-slli a6, a5, 2
+addi a6, a5, 20
 addi a2, a2, 4
 blt a2, a3, WAIT
