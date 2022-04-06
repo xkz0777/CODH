@@ -1,6 +1,6 @@
 <div style="text-align:center;font-size:2em;font-weight:bold;margin-top:20%">中国科学技术大学计算机学院</div>
 
-<div style="text-align:center;font-size:2em;font-weight:bold">《数字电路实验报告》</div>
+<div style="text-align:center;font-size:2em;font-weight:bold">《计算机组成原理实验报告》</div>
 
 <img src="logo.png" style="zoom: 50%;" />
 
