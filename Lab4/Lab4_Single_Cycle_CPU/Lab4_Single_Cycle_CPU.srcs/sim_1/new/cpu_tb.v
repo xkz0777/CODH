@@ -36,7 +36,13 @@ module cpu_tb();
     end
 
     wire [31:0] pc;
-    wire [15:0] chk_addr;
+    reg [15:0] chk_addr;
+
+    initial begin
+        chk_addr = 16'h2000;
+    end
+
+
     wire [31:0] chk_data;
     cpu cpu_inst(.clk(clk), .rstn(rstn), .next_pc(pc), .chk_addr(chk_addr), .chk_data(chk_data));
 endmodule
