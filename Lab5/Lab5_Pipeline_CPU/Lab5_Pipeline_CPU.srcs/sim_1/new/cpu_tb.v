@@ -1,4 +1,5 @@
 `timescale 1ns / 1ps
+
 module cpu_tb();
     reg clk, cont, rstn;
     initial begin
@@ -23,5 +24,5 @@ module cpu_tb();
 
 
     wire [31:0] chk_data;
-    cpu cpu_inst(.clk(clk), .rstn(rstn), .next_pc(pc), .chk_addr(chk_addr), .chk_data(chk_data));
+    cpu cpu_inst(.clk(clk), .rstn(rstn), .chk_pc(pc), .chk_addr(chk_addr), .chk_data(chk_data));
 endmodule
