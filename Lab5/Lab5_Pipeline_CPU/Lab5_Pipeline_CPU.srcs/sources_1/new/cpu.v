@@ -266,6 +266,8 @@ module cpu (
     reg [1:0] wb_mem_to_reg;
     reg wb_reg_write;
     reg [4:0] wb_rf_wa;
+    reg [31:0] wb_io_din;
+    reg wb_io_rd;
 
     always@(posedge clk or negedge rstn) begin
         if (!rstn) begin
@@ -277,6 +279,8 @@ module cpu (
             wb_reg_write <= 0;
             wb_rf_wa <= 0;
             wb_mem_to_reg <= 0;
+            wb_io_din <= 0;
+            wb_io_rd <= 0;
         end
 
         else begin
@@ -288,12 +292,14 @@ module cpu (
             wb_reg_write <= mem_reg_write;
             wb_rf_wa <= mem_rf_wa;
             wb_mem_to_reg <= mem_mem_to_reg;
+            wb_io_din <= io_din;
+            wb_io_rd <= io_rd;
         end
     end
 
     wire [31:0] wb_rf_wd;
 
-    rf_control rf_control_inst(io_rd, io_din, wb_mem_to_reg, wb_alu_out, wb_pc, wb_dm_rd0, wb_extended_imm, wb_rf_wd);
+    rf_control rf_control_inst(wb_io_rd, wb_io_din, wb_mem_to_reg, wb_alu_out, wb_pc, wb_dm_rd0, wb_extended_imm, wb_rf_wd);
     register_file rf_inst(clk, rf_ra0, rf_ra1, rf_ra2, rf_rd0, rf_rd1, rf_rd2, wb_rf_wa, wb_rf_wd, wb_reg_write);
     forwarding forwarding_inst(ex_rs1, ex_rs2, mem_rd, wb_rd, mem_reg_write, wb_reg_write, ex_rf_rd0, ex_rf_rd1, mem_alu_out, wb_rf_wd, ex_a, ex_b);
 

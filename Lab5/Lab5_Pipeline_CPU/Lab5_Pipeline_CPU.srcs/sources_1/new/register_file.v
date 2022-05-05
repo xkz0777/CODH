@@ -20,12 +20,9 @@ module register_file#(
         if (we && (wa != 0))
             rf[wa] <= wd; // 写操作
 
-    always@(negedge clk) begin
-        rd0 <= rf[ra0];
-        rd1 <= rf[ra1];
-        rd2 <= rf[ra2];
+    always@(*) begin
+        rd0 = (ra0 == wa && we && wa != 0) ? wd : rf[ra0];
+        rd1 = (ra1 == wa && we && wa != 0) ? wd : rf[ra1];
+        rd2 = (ra2 == wa && we && wa != 0) ? wd : rf[ra2];
     end
-    // assign rd0 = rf[ra0];
-    // assign rd1 = rf[ra1];
-    // assign rd2 = rf[ra2];
 endmodule
