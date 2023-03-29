@@ -16,12 +16,13 @@
 
 <div style="display: flex;flex-direction: column;align-items: center;font-size:1.5em">
 <div>
-<p>实验题目：单周期CPU设计</p>
+<p>实验题目：流水线CPU设计</p>
 <p>学生姓名：许坤钊</p>
 <p>学生学号：PB20111714</p>
 <p>完成时间：2022.05.04</p>
 </div>
 </div>
+
 
 
 

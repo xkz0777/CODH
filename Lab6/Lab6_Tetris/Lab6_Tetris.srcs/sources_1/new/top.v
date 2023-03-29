@@ -266,9 +266,6 @@ module top(
                      .ready_green_sig(ready_green_sig),
                      .ready_blue_sig(ready_blue_sig),
                      .over_sig(over_sig),
-                     .over_red_sig(over_red_sig),
-                     .over_green_sig(over_green_sig),
-                     .over_blue_sig(over_blue_sig),
                      .red_out(red_out),
                      .green_out(green_out),
                      .blue_out(blue_out)
@@ -276,6 +273,4 @@ module top(
 
     assign w_rotateL = 1'b1;
 
-    // Debug
-    // assign led = {red_out, green_out, blue_out, vsync, hsync, red, green, blue, gameready_sig, start_sig, over_sig};
 endmodule

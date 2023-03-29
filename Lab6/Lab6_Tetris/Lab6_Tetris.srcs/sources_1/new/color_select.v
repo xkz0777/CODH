@@ -6,15 +6,12 @@ module color_select(
         input gameready_sig,
         input start_sig,
         input over_sig,
-        // game_display 生成
         input [3:0] red,
         input [3:0] green,
         input [3:0] blue,
-        // start_vga_control_module 生成
         input ready_red_sig,
         input ready_green_sig,
         input ready_blue_sig,
-        // over_vga_control_module 生成
         input over_red_sig,
         input over_green_sig,
         input over_blue_sig,
